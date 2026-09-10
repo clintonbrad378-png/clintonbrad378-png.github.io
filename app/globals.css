@@ -1,0 +1,84 @@
+@import "tailwindcss";
+
+/* Paleta extraída del logo (public/logo/logo.jpeg — ROSAS LS):
+   negro puro #050505, dorado metálico #D4AF37 / #C9A86A,
+   dorado claro #E8D5A3, bronce #8C6F3A, crema #F5EFE6. */
+@theme {
+  --color-noir-950: #050505;
+  --color-noir-900: #101010;
+  --color-noir-800: #1a1a1a;
+  --color-noir-700: #2a2a2a;
+  --color-noir-600: #3a3a3a;
+
+  --color-gold-200: #f2e6c4;
+  --color-gold-300: #e8d5a3;
+  --color-gold-400: #d4af37;
+  --color-gold-500: #c9a86a;
+  --color-gold-600: #8c6f3a;
+  --color-gold-700: #6b542c;
+
+  --color-cream-50: #faf7f1;
+  --color-cream-100: #f5efe6;
+  --color-cream-200: #e8ddc9;
+
+  --color-bordeaux-700: #5c1a24;
+  --color-bordeaux-600: #7a2230;
+
+  --font-display: "Cormorant Garamond", "Playfair Display", Georgia, serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  --background: #050505;
+  --foreground: #f5efe6;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body);
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.gold-text-gradient {
+  background: linear-gradient(135deg, #e8d5a3 0%, #c9a86a 40%, #d4af37 70%, #8c6f3a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.gold-border-gradient {
+  border: 1px solid transparent;
+  background:
+    linear-gradient(#141414, #141414) padding-box,
+    linear-gradient(135deg, #e8d5a3, #8c6f3a) border-box;
+}
+
+.gold-divider {
+  background: linear-gradient(90deg, transparent, #c9a86a 20%, #e8d5a3 50%, #c9a86a 80%, transparent);
+  height: 1px;
+}
+
+.card-hover {
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.card-hover:hover {
+  transform: translateY(-4px);
+  border-color: rgba(201, 168, 106, 0.6);
+  box-shadow: 0 20px 50px -20px rgba(201, 168, 106, 0.35);
+}
+
+/* Placeholder pattern para MVP sin fotos */
+.rose-placeholder {
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 35%, rgba(201,168,106,0.22), transparent 70%),
+    radial-gradient(ellipse 60% 50% at 50% 90%, rgba(92,26,36,0.5), transparent 70%),
+    linear-gradient(180deg, #1e1e1e 0%, #0a0a0a 100%);
+}
