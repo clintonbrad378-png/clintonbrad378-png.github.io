@@ -1,6 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Export 100% estático para GitHub Pages (sin servidor).
+  // Las lecturas de Supabase ocurren en build (prerender) y en el
+  // navegador en vivo (catálogo siempre fresco, panel admin).
+  output: "export",
+  images: { unoptimized: true },
   async headers() {
     return [
       {

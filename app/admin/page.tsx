@@ -1,15 +1,13 @@
-import { redirect } from "next/navigation";
 import { AdminDashboard } from "@/components/admin/AdminDashboard";
-import { getSessionUser } from "@/lib/supabase-server";
 
 export const metadata = {
   title: "Admin · Rosas LS",
   robots: { index: false, follow: false },
 };
 
-export default async function AdminPage() {
-  // Guard server-side: sin sesión verificada no se renderiza nada del panel.
-  const user = await getSessionUser();
-  if (!user) redirect("/admin/login");
+export default function AdminPage() {
+  // Sitio estático: la verificación de sesión vive en el cliente
+  // (AdminDashboard redirige a /admin/login sin sesión).
+  // Los datos están protegidos por RLS en Supabase.
   return <AdminDashboard />;
 }

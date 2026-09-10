@@ -1,16 +1,11 @@
-import { redirect } from "next/navigation";
 import { LoginForm } from "@/components/admin/LoginForm";
-import { getSessionUser } from "@/lib/supabase-server";
 
 export const metadata = {
   title: "Admin login · Rosas LS",
   robots: { index: false, follow: false },
 };
 
-export default async function AdminLoginPage() {
-  // Si ya hay sesión, no mostrar el login.
-  const user = await getSessionUser();
-  if (user) redirect("/admin");
+export default function AdminLoginPage() {
   return (
     <main className="mx-auto max-w-md px-4 py-16">
       <p className="text-center text-xs uppercase tracking-[0.3em] text-gold-500">Zona privada</p>

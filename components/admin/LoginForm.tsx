@@ -26,6 +26,16 @@ export function LoginForm() {
     return () => clearInterval(t);
   }, [lockedUntil]);
 
+  // Si ya hay sesión, ir directo al panel (sin setState: solo navegar).
+  useEffect(() => {
+    if (!isSupabaseConfigured()) return;
+    supabaseBrowser()
+      .auth.getSession()
+      .then(({ data }) => {
+        if (data.session) router.replace("/admin");
+      });
+  }, [router]);
+
   const locked = lockedUntil > now;
   const remaining = Math.max(0, Math.ceil((lockedUntil - now) / 1000));
 

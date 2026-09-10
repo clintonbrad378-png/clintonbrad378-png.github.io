@@ -63,13 +63,13 @@ export function AdminDashboard() {
 
   const configured = isSupabaseConfigured();
 
-  /** Pide al servidor que invalide el caché para ver cambios al instante. */
+  /**
+   * Sitio estático: el catálogo se refresca solo en el navegador al instante.
+   * Las páginas de producto y el número de WhatsApp del encabezado/pie
+   * se regeneran solas cada hora (GitHub Action).
+   */
   async function revalidateSite() {
-    try {
-      await fetch("/api/admin/revalidate", { method: "POST" });
-    } catch {
-      /* la web se actualizará en el siguiente despliegue; no bloquea */
-    }
+    /* sin servidor: no hay nada que invalidar */
   }
 
   useEffect(() => {
@@ -178,7 +178,7 @@ export function AdminDashboard() {
       if (error) setMsg("Error guardando contacto: " + error.message);
       else {
         setWaNumber(digits);
-        setMsg("Contacto actualizado. La web y los botones de WhatsApp ya usan el nuevo número.");
+        setMsg("Contacto actualizado. El número nuevo aparece en la web en la próxima actualización automática (máx. 1 h).");
         await revalidateSite();
       }
     } finally {
