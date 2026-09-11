@@ -1,16 +1,17 @@
+import { Suspense } from "react";
 import { getCategories, getProducts } from "@/lib/data";
-import { CatalogClient } from "@/components/CatalogClient";
+import { CatalogFromURL } from "@/components/CatalogFromURL";
 import { getSiteSettings } from "@/lib/settings";
 import { whatsappLinkGeneral } from "@/lib/whatsapp";
 
 export const metadata = { title: "Catálogo de ramos y arreglos" };
 
-export default async function Home({
-  searchParams,
-}: {
-  searchParams: Promise<{ cat?: string; ofertas?: string }>;
-}) {
-  const sp = await searchParams;
+// Estática + revalidación horaria: el servidor casi no trabaja por visita
+// (anti error-1102). El catálogo además se refresca solo en el navegador y
+// el admin lo republica al instante al guardar.
+export const revalidate = 3600;
+
+export default async function Home() {
   const [products, categories, settings] = await Promise.all([
     getProducts({ onlyActive: true }),
     getCategories(),
@@ -62,14 +63,18 @@ export default async function Home({
         Nuestras piezas
       </h2>
       <div id="catalogo" className="mt-6 scroll-mt-24">
-        {/* key: al cambiar ?cat / ?ofertas se reinicia el filtro con la URL */}
-        <CatalogClient
-          key={`${sp.cat ?? "todos"}-${sp.ofertas ?? "0"}`}
-          products={products}
-          categories={categories}
-          initialCat={sp.cat ?? "todos"}
-          initialOnlyOffer={sp.ofertas === "1"}
-        />
+        <Suspense
+          fallback={
+            <p className="mt-6 text-center text-sm text-cream-100/50">
+              Cargando catálogo...
+            </p>
+          }
+        >
+          <CatalogFromURL
+            initialProducts={products}
+            initialCategories={categories}
+          />
+        </Suspense>
       </div>
     </main>
   );

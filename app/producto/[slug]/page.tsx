@@ -11,6 +11,10 @@ export async function generateStaticParams() {
   return products.map((p) => ({ slug: p.slug }));
 }
 
+// Red de seguridad: aunque el admin republica al instante al guardar,
+// cada hora se regenera sola por si algo falló.
+export const revalidate = 3600;
+
 // OG dinámico: al compartir un producto sale SU foto, nombre y precio
 export async function generateMetadata({
   params,
