@@ -16,6 +16,9 @@ export const DEFAULT_SETTINGS: SiteSettings = {
   instagram: "rosaseternaslidia",
 };
 
+/** URL pública de la web (la que lleva el QR y las vistas previas). */
+export const SITE_URL = "https://rosasls.jrprogramsofficial.workers.dev";
+
 /** Limpia un número de teléfono a solo dígitos. */
 export function sanitizePhone(raw: string): string {
   return (raw ?? "").replace(/\D/g, "");

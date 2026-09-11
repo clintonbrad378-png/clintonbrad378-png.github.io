@@ -6,6 +6,7 @@ import { isSupabaseConfigured, supabaseBrowser } from "@/lib/supabase";
 import { DEMO_CATEGORIES, DEMO_PRODUCTS, formatMXN } from "@/lib/demo-data";
 import { DEFAULT_SETTINGS, isValidPhone, sanitizePhone } from "@/lib/settings";
 import { slugify } from "@/lib/data";
+import { SiteQr } from "@/components/admin/SiteQr";
 import type { Category, Product } from "@/lib/types";
 
 type FormState = {
@@ -422,6 +423,8 @@ export function AdminDashboard() {
           {savingSettings ? "Guardando..." : "Guardar contacto"}
         </button>
       </form>
+
+      <SiteQr />
 
       {/* FORM */}
       <form onSubmit={handleSave} className="mt-6 grid gap-4 rounded-2xl border border-gold-500/25 bg-noir-900 p-6 md:grid-cols-2">

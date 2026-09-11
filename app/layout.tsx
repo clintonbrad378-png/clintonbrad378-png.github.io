@@ -3,7 +3,7 @@ import { Cormorant_Garamond, Inter } from "next/font/google";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { WhatsAppFloat } from "@/components/WhatsAppFloat";
-import { getSiteSettings } from "@/lib/settings";
+import { getSiteSettings, SITE_URL } from "@/lib/settings";
 import "./globals.css";
 
 const display = Cormorant_Garamond({
@@ -17,7 +17,6 @@ const body = Inter({
   subsets: ["latin"],
 });
 
-const SITE_URL = "https://rosasls.jrprogramsofficial.workers.dev";
 const SITE_TITLE = "Rosas LS · Ramos y Arreglos";
 const SITE_DESC =
   "Ramos y arreglos artesanales con rosas eternas y girasoles. Elige tu favorita y pide por WhatsApp.";
