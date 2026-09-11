@@ -1,46 +1,24 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import type { Category, Product } from "@/lib/types";
-import { isSupabaseConfigured } from "@/lib/supabase";
-import { fetchLiveCategories, fetchLiveProducts } from "@/lib/public-data";
 import { ProductCard } from "@/components/Product";
 
 export function CatalogClient({
-  initialProducts,
-  initialCategories,
+  products,
+  categories,
   initialCat,
   initialOnlyOffer = false,
 }: {
-  initialProducts: Product[];
-  initialCategories: Category[];
+  products: Product[];
+  categories: Category[];
   initialCat: string;
   initialOnlyOffer?: boolean;
 }) {
-  const [products, setProducts] = useState(initialProducts);
-  const [categories, setCategories] = useState(initialCategories);
   const [q, setQ] = useState("");
   const [cat, setCat] = useState(initialCat);
   const [sort, setSort] = useState<"dest" | "asc" | "desc">("dest");
   const [onlyOffer, setOnlyOffer] = useState(initialOnlyOffer);
-
-  // Refresco en vivo: pinta con el build y actualiza desde Supabase.
-  useEffect(() => {
-    if (!isSupabaseConfigured()) return;
-    let alive = true;
-    (async () => {
-      const [prods, cats] = await Promise.all([
-        fetchLiveProducts(),
-        fetchLiveCategories(),
-      ]);
-      if (!alive) return;
-      if (prods) setProducts(prods);
-      if (cats) setCategories(cats);
-    })();
-    return () => {
-      alive = false;
-    };
-  }, []);
 
   const filtered = useMemo(() => {
     let list = [...products];

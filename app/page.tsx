@@ -1,13 +1,16 @@
-import { Suspense } from "react";
 import { getCategories, getProducts } from "@/lib/data";
-import { CatalogFromURL } from "@/components/CatalogFromURL";
+import { CatalogClient } from "@/components/CatalogClient";
 import { getSiteSettings } from "@/lib/settings";
 import { whatsappLinkGeneral } from "@/lib/whatsapp";
 
 export const metadata = { title: "Catálogo · Rosas LS" };
 
-export default async function Home() {
-  // Prerender en build; el catálogo se refresca solo en el navegador.
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Promise<{ cat?: string; ofertas?: string }>;
+}) {
+  const sp = await searchParams;
   const [products, categories, settings] = await Promise.all([
     getProducts({ onlyActive: true }),
     getCategories(),
@@ -58,18 +61,14 @@ export default async function Home() {
         Nuestras piezas
       </h2>
       <div id="catalogo" className="mt-6 scroll-mt-24">
-        <Suspense
-          fallback={
-            <p className="mt-6 text-center text-sm text-cream-100/50">
-              Cargando catálogo...
-            </p>
-          }
-        >
-          <CatalogFromURL
-            initialProducts={products}
-            initialCategories={categories}
-          />
-        </Suspense>
+        {/* key: al cambiar ?cat / ?ofertas se reinicia el filtro con la URL */}
+        <CatalogClient
+          key={`${sp.cat ?? "todos"}-${sp.ofertas ?? "0"}`}
+          products={products}
+          categories={categories}
+          initialCat={sp.cat ?? "todos"}
+          initialOnlyOffer={sp.ofertas === "1"}
+        />
       </div>
     </main>
   );
