@@ -54,10 +54,10 @@ export const DEMO_PRODUCTS: Product[] = [
     { sale_price: 149, featured: false, colors: ["Amarillo"], stock: 12, images: ["/ofertas/rosa-individual-amarilla.jpg"] }),
 ];
 
-export function formatMXN(n: number) {
-  return new Intl.NumberFormat("es-MX", {
+export function formatCUP(n: number) {
+  return new Intl.NumberFormat("es-CU", {
     style: "currency",
-    currency: "MXN",
+    currency: "CUP",
     maximumFractionDigits: 0,
   }).format(n);
 }

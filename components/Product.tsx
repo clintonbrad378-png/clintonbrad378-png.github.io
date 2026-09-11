@@ -1,4 +1,4 @@
-import { formatMXN } from "@/lib/demo-data";
+import { formatCUP } from "@/lib/demo-data";
 import type { Product } from "@/lib/types";
 import { whatsappLinkForProduct } from "@/lib/whatsapp";
 import Link from "next/link";
@@ -58,9 +58,9 @@ export function ProductCard({ product }: { product: Product }) {
         </p>
         <h3 className="font-display mt-1 text-xl leading-tight text-cream-100">{product.name}</h3>
         <div className="mt-2 flex items-baseline gap-2">
-          <span className="text-lg font-bold text-gold-300">{formatMXN(price)}</span>
+          <span className="text-lg font-bold text-gold-300">{formatCUP(price)}</span>
           {hasOffer && (
-            <span className="text-sm text-cream-100/40 line-through">{formatMXN(product.price)}</span>
+            <span className="text-sm text-cream-100/40 line-through">{formatCUP(product.price)}</span>
           )}
         </div>
         <span className="mt-3 block rounded-full border border-gold-500/40 py-2 text-center text-sm text-gold-300">

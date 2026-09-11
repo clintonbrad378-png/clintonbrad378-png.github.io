@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { isSupabaseConfigured, supabaseBrowser } from "@/lib/supabase";
-import { DEMO_CATEGORIES, DEMO_PRODUCTS, formatMXN } from "@/lib/demo-data";
+import { DEMO_CATEGORIES, DEMO_PRODUCTS, formatCUP } from "@/lib/demo-data";
 import { DEFAULT_SETTINGS, isValidPhone, sanitizePhone } from "@/lib/settings";
 import { slugify } from "@/lib/data";
 import { SiteQr } from "@/components/admin/SiteQr";
@@ -442,7 +442,7 @@ export function AdminDashboard() {
             className="mt-1 w-full rounded-xl border border-white/10 bg-noir-950 px-4 py-2.5 outline-none focus:border-gold-500/60" />
         </div>
         <div>
-          <label className="text-sm text-cream-100/70">Precio MXN *</label>
+          <label className="text-sm text-cream-100/70">Precio CUP *</label>
           <input required type="number" min={0} value={form.price} onChange={(e) => setForm({ ...form, price: e.target.value })}
             placeholder="1299" className="mt-1 w-full rounded-xl border border-white/10 bg-noir-950 px-4 py-2.5 outline-none" />
         </div>
@@ -625,7 +625,7 @@ export function AdminDashboard() {
                   <b className="text-cream-100">{p.name}</b>
                   <span className="block text-xs text-cream-100/40">{p.slug}</span>
                 </td>
-                <td className="p-4 text-gold-300 font-semibold">{formatMXN(p.sale_price ?? p.price)}</td>
+                <td className="p-4 text-gold-300 font-semibold">{formatCUP(p.sale_price ?? p.price)}</td>
                 <td className="p-4">
                   <div className="flex gap-2">
                     <button onClick={() => toggleField(p, "active")}

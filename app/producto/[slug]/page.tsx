@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getProductBySlug, getProducts } from "@/lib/data";
 import { getSiteSettings } from "@/lib/settings";
-import { formatMXN } from "@/lib/demo-data";
+import { formatCUP } from "@/lib/demo-data";
 import { ProductDetailClient } from "@/components/ProductDetailClient";
 import { ProductCard } from "@/components/Product";
 
@@ -24,7 +24,7 @@ export async function generateMetadata({
   const { slug } = await params;
   const product = await getProductBySlug(slug);
   if (!product) return {};
-  const price = formatMXN(product.sale_price ?? product.price);
+  const price = formatCUP(product.sale_price ?? product.price);
   const title = `${product.name} — ${price}`;
   const description =
     product.description.slice(0, 150) +

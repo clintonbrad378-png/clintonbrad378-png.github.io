@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { Product } from "@/lib/types";
-import { formatMXN } from "@/lib/demo-data";
+import { formatCUP } from "@/lib/demo-data";
 import { RosePlaceholder } from "@/components/Product";
 import { whatsappLinkForProduct } from "@/lib/whatsapp";
 import { DEFAULT_SETTINGS } from "@/lib/settings";
@@ -98,8 +98,8 @@ export function ProductDetailClient({
           </p>
         <h1 className="font-display mt-2 text-3xl leading-tight md:text-4xl">{product.name}</h1>
         <div className="mt-3 flex items-baseline gap-3">
-          <span className="text-3xl font-bold text-gold-300">{formatMXN(price)}</span>
-          {hasOffer && <span className="text-cream-100/40 line-through">{formatMXN(product.price)}</span>}
+          <span className="text-3xl font-bold text-gold-300">{formatCUP(price)}</span>
+          {hasOffer && <span className="text-cream-100/40 line-through">{formatCUP(product.price)}</span>}
         </div>
         <p className="mt-4 leading-7 text-cream-100/70">{product.description}</p>
 
@@ -155,10 +155,10 @@ export function ProductDetailClient({
           <div className="min-w-0 flex-1">
             <p className="truncate text-xs text-cream-100/60">{product.name}</p>
             <p className="text-base font-bold text-gold-300">
-              {formatMXN(price)}
+              {formatCUP(price)}
               {hasOffer && (
                 <span className="ml-2 text-xs font-normal text-cream-100/40 line-through">
-                  {formatMXN(product.price)}
+                  {formatCUP(product.price)}
                 </span>
               )}
             </p>

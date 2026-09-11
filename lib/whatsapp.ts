@@ -21,7 +21,7 @@ export function whatsappLinkForProduct(
   const msg =
     `Hola Rosas LS, quiero hacer un pedido:\n\n` +
     `• Producto: ${product.name}\n` +
-    `• Precio: $${price} MXN` +
+    `• Precio: $${price} CUP` +
     (variant ? `\n• Color: ${variant}` : "") +
     `\n\n¿Me confirmas tiempo de elaboración y entrega? ¡Gracias!`;
   return `https://wa.me/${number ?? whatsappNumber()}?text=${encodeURIComponent(msg)}`;
