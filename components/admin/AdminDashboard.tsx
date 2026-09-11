@@ -212,12 +212,32 @@ export function AdminDashboard() {
       setMsg("Conecta Supabase para guardar (ver README). Estás en modo demo.");
       return;
     }
+    if (!form.name.trim()) {
+      setMsg("El producto necesita un nombre.");
+      return;
+    }
     setSaving(true);
     try {
       const sb = supabaseBrowser();
+      // El enlace (slug) NUNCA cambia al editar: así no se rompen los links
+      // ya compartidos en WhatsApp. Solo se genera al crear, y único.
+      let slug: string;
+      if (editing && form.id) {
+        slug =
+          products.find((p) => p.id === form.id)?.slug || slugify(form.name);
+      } else {
+        const base = slugify(form.name) || "producto";
+        slug = base;
+        const taken = new Set(products.map((p) => p.slug));
+        let n = 2;
+        while (taken.has(slug)) {
+          slug = `${base}-${n}`;
+          n += 1;
+        }
+      }
       const payload = {
         name: form.name.trim(),
-        slug: slugify(form.name),
+        slug,
         description: form.description.trim(),
         price: Number(form.price) || 0,
         sale_price: form.sale_price ? Number(form.sale_price) : null,
@@ -434,6 +454,11 @@ export function AdminDashboard() {
           <input required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })}
             placeholder="Ramo Girasol Real con Corona"
             className="mt-1 w-full rounded-xl border border-white/10 bg-noir-950 px-4 py-2.5 outline-none focus:border-gold-500/60" />
+          {editing && form.id && (
+            <p className="mt-1 font-mono text-xs text-cream-100/40">
+              Enlace: /producto/{products.find((p) => p.id === form.id)?.slug} · no cambia al renombrar
+            </p>
+          )}
         </div>
         <div className="md:col-span-2">
           <label className="text-sm text-cream-100/70">Descripción</label>
