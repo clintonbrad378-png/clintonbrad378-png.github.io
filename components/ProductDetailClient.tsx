@@ -116,8 +116,11 @@ export function ProductDetailClient({
           ))}
         </div>
 
-        <p className={`mt-4 text-sm ${product.stock > 0 ? "text-green-400" : "text-red-400"}`}>
-          {product.stock > 0 ? `Disponible · ${product.stock} piezas` : "Agotado temporalmente — pregunta por encargo"}
+        <p className="mt-4 flex items-center gap-2 text-sm text-gold-300">
+          <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-gold-500/20 text-xs font-bold">
+            ✓
+          </span>
+          Se elabora por encargo · la preparamos al recibir tu pedido
         </p>
 
         <div className="mt-5 hidden flex-col gap-3 md:flex">

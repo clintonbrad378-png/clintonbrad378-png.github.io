@@ -101,7 +101,7 @@ export function CatalogClient({
         ))}
       </div>
 
-      <p className="mt-6 text-sm text-cream-100/50">{filtered.length} piezas</p>
+      <p className="mt-6 text-sm text-cream-100/50">{filtered.length} diseños · todos por encargo</p>
       {filtered.length === 0 ? (
         <div className="mt-6 rounded-2xl border border-dashed border-gold-500/40 p-10 text-center text-cream-100/60">
           Sin resultados. Prueba con otra búsqueda o categoría.

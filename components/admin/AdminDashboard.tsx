@@ -460,11 +460,6 @@ export function AdminDashboard() {
           </select>
         </div>
         <div>
-          <label className="text-sm text-cream-100/70">Stock</label>
-          <input type="number" min={0} value={form.stock} onChange={(e) => setForm({ ...form, stock: e.target.value })}
-            className="mt-1 w-full rounded-xl border border-white/10 bg-noir-950 px-4 py-2.5 outline-none" />
-        </div>
-        <div>
           <label className="text-sm text-cream-100/70">Colores (separados por coma)</label>
           <input value={form.colors} onChange={(e) => setForm({ ...form, colors: e.target.value })}
             className="mt-1 w-full rounded-xl border border-white/10 bg-noir-950 px-4 py-2.5 outline-none" />
@@ -619,7 +614,6 @@ export function AdminDashboard() {
             <tr className="bg-noir-900 text-left text-xs uppercase tracking-wider text-gold-500">
               <th className="p-4">Producto</th>
               <th className="p-4">Precio</th>
-              <th className="p-4">Stock</th>
               <th className="p-4">Estado</th>
               <th className="p-4">Acciones</th>
             </tr>
@@ -632,7 +626,6 @@ export function AdminDashboard() {
                   <span className="block text-xs text-cream-100/40">{p.slug}</span>
                 </td>
                 <td className="p-4 text-gold-300 font-semibold">{formatMXN(p.sale_price ?? p.price)}</td>
-                <td className="p-4">{p.stock}</td>
                 <td className="p-4">
                   <div className="flex gap-2">
                     <button onClick={() => toggleField(p, "active")}
