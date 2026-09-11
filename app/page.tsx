@@ -21,11 +21,12 @@ export default async function Home({
     <main className="mx-auto max-w-6xl px-4 py-8">
       {/* Hero con logo oficial */}
       <section className="flex flex-col items-center text-center">
+        {/* Logo oficial completo, sin recortes */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/logo/logo.jpeg"
-          alt="Rosas LS — Ramos y Arreglos"
-          className="h-44 w-44 rounded-full border-2 border-gold-500/70 object-cover shadow-[0_0_60px_-15px_rgba(212,175,55,0.5)] md:h-56 md:w-56"
+          alt="Rosas LS — Ramos y Arreglos · rosaseternaslidia · 5015-04-48"
+          className="w-64 rounded-3xl border-2 border-gold-500/70 object-contain shadow-[0_0_60px_-15px_rgba(212,175,55,0.5)] md:w-80"
         />
         <p className="mt-6 text-center text-xs uppercase tracking-[0.3em] text-gold-500">
           Ramos y Arreglos

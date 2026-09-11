@@ -21,7 +21,12 @@ export const metadata: Metadata = {
   title: "Rosas LS · Ramos y Arreglos",
   description:
     "Catálogo de Rosas LS: ramos y arreglos artesanales con rosas eternas y girasoles. Pedidos por WhatsApp: 5015-04-48.",
-  icons: { icon: "/logo/logo.jpeg" },
+  icons: {
+    icon: [
+      { url: "/logo/logo.jpeg", type: "image/jpeg" },
+    ],
+    apple: [{ url: "/logo/logo.jpeg", type: "image/jpeg" }],
+  },
 };
 
 export default async function RootLayout({ children }: LayoutProps<"/">) {
