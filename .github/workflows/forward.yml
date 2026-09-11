@@ -1,0 +1,58 @@
+# Rosas LS · La web vive en Cloudflare Workers.
+# Este workflow solo publica una redirección para quien visite la URL vieja.
+# Solo aplica al repo usuario.github.io (en rosa-eterna no hace nada).
+
+name: Redirige a Cloudflare
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    if: github.repository == 'clintonbrad378-png/clintonbrad378-png.github.io'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Página de redirección
+        run: |
+          mkdir -p out
+          cat > out/index.html <<'EOF'
+          <!DOCTYPE html>
+          <html lang="es">
+          <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>Rosas LS · Ramos y Arreglos</title>
+            <meta http-equiv="refresh" content="0; url=https://rosasls.jrprogramsofficial.workers.dev/">
+            <link rel="canonical" href="https://rosasls.jrprogramsofficial.workers.dev/">
+          </head>
+          <body style="background:#050505;color:#F5EFE6;font-family:Georgia,serif;text-align:center;padding:60px 20px">
+            <h1>ROSAS LS · Ramos y Arreglos</h1>
+            <p>Nuestra web se mudó. Te llevamos allá…</p>
+            <p><a style="color:#C9A86A" href="https://rosasls.jrprogramsofficial.workers.dev/">https://rosasls.jrprogramsofficial.workers.dev</a></p>
+          </body>
+          </html>
+          EOF
+          touch out/.nojekyll
+
+      - name: Subir artefacto
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+
+      - name: Desplegar
+        id: deployment
+        uses: actions/deploy-pages@v4
