@@ -136,11 +136,6 @@ export function ProductDetailClient({
           </p>
         </div>
 
-        <div className="mt-6 rounded-2xl border border-white/10 bg-noir-900 p-5 text-sm leading-6 text-cream-100/60">
-          <b className="text-cream-100">Incluye:</b> caja premium, tarjeta personalizada y guía de cuidados.
-          Entrega local y envíos nacionales. Personalización de colores sin costo extra en MVP.
-        </div>
-
         <div className="mt-6 hidden md:block">
           <BackButton />
         </div>
