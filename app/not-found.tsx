@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export const metadata = { title: "No encontrada · Rosas LS" };
+export const metadata = { title: "Página no encontrada" };
 
 export default function NotFound() {
   return (

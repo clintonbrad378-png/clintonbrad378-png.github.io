@@ -3,7 +3,7 @@ import { AdminDashboard } from "@/components/admin/AdminDashboard";
 import { getSessionUser } from "@/lib/supabase-server";
 
 export const metadata = {
-  title: "Admin · Rosas LS",
+  title: "Panel admin",
   robots: { index: false, follow: false },
 };
 

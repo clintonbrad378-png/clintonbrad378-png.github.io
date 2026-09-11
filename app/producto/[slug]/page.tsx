@@ -1,12 +1,47 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getProductBySlug, getProducts } from "@/lib/data";
 import { getSiteSettings } from "@/lib/settings";
+import { formatMXN } from "@/lib/demo-data";
 import { ProductDetailClient } from "@/components/ProductDetailClient";
 import { ProductCard } from "@/components/Product";
 
 export async function generateStaticParams() {
   const products = await getProducts();
   return products.map((p) => ({ slug: p.slug }));
+}
+
+// OG dinámico: al compartir un producto sale SU foto, nombre y precio
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const product = await getProductBySlug(slug);
+  if (!product) return {};
+  const price = formatMXN(product.sale_price ?? product.price);
+  const title = `${product.name} — ${price}`;
+  const description =
+    product.description.slice(0, 150) +
+    " Pide por WhatsApp en Rosas LS · Ramos y Arreglos.";
+  const image = product.images?.[0] ?? "/og-image.jpg";
+  return {
+    title,
+    description,
+    openGraph: {
+      type: "website",
+      title,
+      description,
+      images: [{ url: image, alt: product.name }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [image],
+    },
+  };
 }
 
 export default async function ProductoPage({ params }: { params: Promise<{ slug: string }> }) {

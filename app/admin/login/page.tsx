@@ -3,7 +3,7 @@ import { LoginForm } from "@/components/admin/LoginForm";
 import { getSessionUser } from "@/lib/supabase-server";
 
 export const metadata = {
-  title: "Admin login · Rosas LS",
+  title: "Acceso admin",
   robots: { index: false, follow: false },
 };
 

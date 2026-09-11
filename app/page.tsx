@@ -3,7 +3,7 @@ import { CatalogClient } from "@/components/CatalogClient";
 import { getSiteSettings } from "@/lib/settings";
 import { whatsappLinkGeneral } from "@/lib/whatsapp";
 
-export const metadata = { title: "Catálogo · Rosas LS" };
+export const metadata = { title: "Catálogo de ramos y arreglos" };
 
 export default async function Home({
   searchParams,

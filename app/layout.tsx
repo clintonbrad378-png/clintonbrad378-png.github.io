@@ -17,15 +17,46 @@ const body = Inter({
   subsets: ["latin"],
 });
 
+const SITE_URL = "https://rosasls.jrprogramsofficial.workers.dev";
+const SITE_TITLE = "Rosas LS · Ramos y Arreglos";
+const SITE_DESC =
+  "Ramos y arreglos artesanales con rosas eternas y girasoles. Elige tu favorita y pide por WhatsApp.";
+
 export const metadata: Metadata = {
-  title: "Rosas LS · Ramos y Arreglos",
-  description:
-    "Catálogo de Rosas LS: ramos y arreglos artesanales con rosas eternas y girasoles. Pedidos por WhatsApp: 5015-04-48.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: SITE_TITLE,
+    template: "%s · Rosas LS",
+  },
+  description: SITE_DESC,
   icons: {
     icon: [
       { url: "/logo/logo.jpeg", type: "image/jpeg" },
     ],
     apple: [{ url: "/logo/logo.jpeg", type: "image/jpeg" }],
+  },
+  // Previsualización bonita al compartir en WhatsApp / redes
+  openGraph: {
+    type: "website",
+    locale: "es_ES",
+    url: SITE_URL,
+    siteName: "Rosas LS",
+    title: SITE_TITLE,
+    description: SITE_DESC,
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Rosas LS — Ramos y Arreglos",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_TITLE,
+    description: SITE_DESC,
+    images: ["/og-image.jpg"],
   },
 };
 
