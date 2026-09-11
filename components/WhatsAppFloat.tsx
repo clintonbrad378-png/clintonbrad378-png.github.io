@@ -1,3 +1,6 @@
+"use client";
+
+import { usePathname } from "next/navigation";
 import { whatsappLinkGeneral } from "@/lib/whatsapp";
 import { DEFAULT_SETTINGS } from "@/lib/settings";
 
@@ -6,6 +9,10 @@ export function WhatsAppFloat({
 }: {
   whatsappNumber?: string;
 }) {
+  const pathname = usePathname();
+  // En la ficha de producto la barra inferior ya trae Volver + Pedir:
+  // el flotante la taparía en móvil, así que ahí se oculta.
+  if (pathname?.startsWith("/producto")) return null;
   return (
     <a
       href={whatsappLinkGeneral(undefined, whatsappNumber)}

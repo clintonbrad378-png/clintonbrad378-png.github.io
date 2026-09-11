@@ -21,7 +21,7 @@ export function Navbar() {
             </span>
           </span>
         </Link>
-        <nav className="flex items-center gap-1 text-sm">
+        <nav className="flex shrink-0 items-center gap-1 text-sm">
           <Link
             href="/#catalogo"
             className="hidden rounded-full px-4 py-1.5 text-cream-100/70 hover:text-gold-300 sm:block"
@@ -30,13 +30,13 @@ export function Navbar() {
           </Link>
           <Link
             href="/?ofertas=1#catalogo"
-            className="rounded-full bg-gold-500/15 px-4 py-1.5 font-semibold text-gold-300 hover:bg-gold-500/25"
+            className="rounded-full bg-gold-500/15 px-3 py-1.5 font-semibold text-gold-300 hover:bg-gold-500/25 sm:px-4"
           >
             Ofertas
           </Link>
           <Link
             href="/admin"
-            className="ml-1 rounded-full border border-gold-500/40 px-4 py-1.5 text-gold-300 hover:bg-gold-500/10"
+            className="ml-1 rounded-full border border-gold-500/40 px-3 py-1.5 text-gold-300 hover:bg-gold-500/10 sm:px-4"
           >
             Admin
           </Link>

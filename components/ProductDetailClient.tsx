@@ -96,7 +96,7 @@ export function ProductDetailClient({
           <p className="text-xs uppercase tracking-[0.25em] text-gold-500">
             {product.category?.name ?? "Colección"}
           </p>
-        <h1 className="font-display mt-2 text-4xl leading-tight">{product.name}</h1>
+        <h1 className="font-display mt-2 text-3xl leading-tight md:text-4xl">{product.name}</h1>
         <div className="mt-3 flex items-baseline gap-3">
           <span className="text-3xl font-bold text-gold-300">{formatMXN(price)}</span>
           {hasOffer && <span className="text-cream-100/40 line-through">{formatMXN(product.price)}</span>}
@@ -145,24 +145,34 @@ export function ProductDetailClient({
       </div>
 
       {/* Barra fija en móvil: precio + pedir + volver siempre visibles */}
-      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-gold-500/25 bg-noir-950/95 p-3 backdrop-blur md:hidden">
-        <div className="mx-auto flex max-w-6xl items-center gap-2">
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-gold-500/25 bg-noir-950/95 p-3 shadow-[0_-10px_30px_rgba(0,0,0,0.5)] backdrop-blur [padding-bottom:max(0.75rem,env(safe-area-inset-bottom))] md:hidden">
+        <div className="mx-auto flex max-w-6xl items-center gap-3">
           <button
             onClick={goBack}
             aria-label="Volver"
-            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-gold-500/40 text-lg text-gold-300"
+            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-gold-500/40 text-lg text-gold-300 active:bg-gold-500/10"
           >
             ←
           </button>
           <div className="min-w-0 flex-1">
             <p className="truncate text-xs text-cream-100/60">{product.name}</p>
-            <p className="text-base font-bold text-gold-300">{formatMXN(price)}</p>
+            <p className="text-base font-bold text-gold-300">
+              {formatMXN(price)}
+              {hasOffer && (
+                <span className="ml-2 text-xs font-normal text-cream-100/40 line-through">
+                  {formatMXN(product.price)}
+                </span>
+              )}
+            </p>
           </div>
           <a
             href={orderLink}
             target="_blank"
-            className="shrink-0 rounded-full bg-[#25D366] px-6 py-3 text-sm font-semibold text-white"
+            className="flex shrink-0 items-center gap-2 rounded-full bg-[#25D366] px-6 py-3.5 text-sm font-bold text-white shadow-lg active:brightness-110"
           >
+            <svg viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5" aria-hidden="true">
+              <path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.4 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.4-.7-2.9-1.2-4.7-4.1-4.9-4.3-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5s.8 1.9.8 2c.1.1.1.3 0 .5-.3.6-.6.8-.4 1.1.6 1.1 1.4 1.9 2.5 2.4.3.2.5 0 .7-.2l.7-.8c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.6.4 0 .1 0 .6-.2 1.5Z" />
+            </svg>
             Pedir
           </a>
         </div>
