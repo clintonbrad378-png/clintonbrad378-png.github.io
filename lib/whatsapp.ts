@@ -19,16 +19,16 @@ export function whatsappLinkForProduct(
 ) {
   const price = product.sale_price ?? product.price;
   const msg =
-    `Hola Rosas LS, me interesa:\n\n` +
-    `• ${product.name}\n` +
+    `Hola Rosas LS, quiero hacer un pedido:\n\n` +
+    `• Producto: ${product.name}\n` +
     `• Precio: $${price} MXN` +
     (variant ? `\n• Color: ${variant}` : "") +
-    `\n\n¿Sigue disponible?`;
+    `\n\n¿Me confirmas tiempo de elaboración y entrega? ¡Gracias!`;
   return `https://wa.me/${number ?? whatsappNumber()}?text=${encodeURIComponent(msg)}`;
 }
 
 export function whatsappLinkGeneral(
-  msg = "Hola Rosas LS, quiero información del catálogo",
+  msg = "Hola Rosas LS, quiero hacer un pedido del catálogo",
   number?: string
 ) {
   return `https://wa.me/${number ?? whatsappNumber()}?text=${encodeURIComponent(msg)}`;
