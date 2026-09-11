@@ -65,12 +65,26 @@ export function AdminDashboard() {
   const configured = isSupabaseConfigured();
 
   /**
-   * Sitio estático: el catálogo se refresca solo en el navegador al instante.
-   * Las páginas de producto y el número de WhatsApp del encabezado/pie
-   * se regeneran solas cada hora (GitHub Action).
+   * Republicar la web tras un cambio (ruta /api/admin/revalidate, solo admin).
+   * En segundo plano y con límite de 10 s: NUNCA bloquea el panel aunque la
+   * conexión esté lenta. Los errores se ignoran (la red horaria lo cubre).
    */
-  async function revalidateSite() {
-    /* sin servidor: no hay nada que invalidar */
+  function revalidateSite() {
+    try {
+      fetch("/api/admin/revalidate", {
+        method: "POST",
+        signal: AbortSignal.timeout(10000),
+      }).catch(() => {
+        /* la regeneración horaria lo publica de todos modos */
+      });
+    } catch {
+      /* navegadores viejos sin AbortSignal.timeout: igual se intenta sin límite */
+      try {
+        fetch("/api/admin/revalidate", { method: "POST" }).catch(() => {});
+      } catch {
+        /* ignorado */
+      }
+    }
   }
 
   useEffect(() => {
@@ -179,8 +193,10 @@ export function AdminDashboard() {
       if (error) setMsg("Error guardando contacto: " + error.message);
       else {
         setWaNumber(digits);
-        setMsg("Contacto actualizado. El número nuevo aparece en la web en la próxima actualización automática (máx. 1 h).");
-        await revalidateSite();
+        // Listo en cuanto la base confirma: no se recarga nada (los valores
+        // ya están en pantalla) y la republicación sigue sola en segundo plano.
+        setMsg("Contacto guardado. Se publica solo en la web en unos segundos.");
+        revalidateSite();
       }
     } finally {
       setSavingSettings(false);
@@ -262,7 +278,7 @@ export function AdminDashboard() {
         setForm(emptyForm);
         setEditing(false);
         await refresh();
-        await revalidateSite();
+        revalidateSite();
       }
     } finally {
       setSaving(false);
@@ -274,7 +290,7 @@ export function AdminDashboard() {
     const sb = supabaseBrowser();
     await sb.from("products").update({ [field]: !p[field] }).eq("id", p.id);
     await refresh();
-    await revalidateSite();
+    revalidateSite();
   }
 
   async function handleDelete(id: string) {
@@ -286,7 +302,7 @@ export function AdminDashboard() {
     else {
       setMsg("Producto eliminado.");
       await refresh();
-      await revalidateSite();
+      revalidateSite();
     }
   }
 
@@ -367,7 +383,7 @@ export function AdminDashboard() {
     if (!error) {
       setNewCat("");
       await refresh();
-      await revalidateSite();
+      revalidateSite();
     } else setMsg("Error categoría: " + error.message);
   }
 
